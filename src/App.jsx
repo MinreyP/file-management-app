@@ -1,10 +1,11 @@
 import './App.css'
+import FileArea from './components/FileArea/FileArea'
 
 function App() {
 
   return (
     <>
-      <h1>Hello React</h1>
+      <FileArea />
     </>
   )
 }

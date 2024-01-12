@@ -5,7 +5,7 @@
   font-weight: 400;
 
   /* theme color palette */
-  --background: #092635;
+  --dark: #092635;
   --hight-light-block: #1B4242;
   --base-color: #5C8374;
   --light-color: #9EC8B9;
@@ -22,14 +22,25 @@
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: space-between;
+  align-items: start;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--dark);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
 }
 
 button {
@@ -39,7 +50,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  color: var(--background);
+  color: var(--dark);
   background-color: var(--light-color);
   cursor: pointer;
   transition: border-color 0.25s;
