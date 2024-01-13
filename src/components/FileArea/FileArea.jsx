@@ -1,5 +1,7 @@
 import folderTree from "../../folders-mockup";
+import '../FileArea/FileArea.css';
 import FolderItem from "../FolderItem/FolderItem"
+
 
 const FileArea = () => {
 
@@ -13,16 +15,16 @@ const FileArea = () => {
             let subFolder = obj[key];
             if (subFolder.sub_folders) {
                 return (
-                    <div key={key}>
+                    <>
                         <FolderItem folderName={subFolder.name} folderID={key} />
-                        {loopingThroughObject(subFolder.sub_folders)}
-                    </div>
+                        <ul>{loopingThroughObject(subFolder.sub_folders)}</ul>
+                    </>
                 );
             } else {
                 return (
-                    <div key={key}>
+                    <>
                         <FolderItem folderName={subFolder.name} folderID={key} />
-                    </div>
+                    </>
                 );
             }
         });
@@ -30,7 +32,7 @@ const FileArea = () => {
 
     return (
         <div className="file-area">
-            <h2>{rootName}</h2>
+            <h2 className="folder-title">{rootName}</h2>
             {subFolders ? loopingThroughObject(subFolders) : 'start adding file content'}
         </div>
     )

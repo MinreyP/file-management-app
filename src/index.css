@@ -19,11 +19,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  margin: 0;
+#root {
   display: flex;
   justify-content: space-between;
   align-items: start;
+  padding: 3rem;
+  height: 100vh;
+}
+
+body {
+  margin: 0;
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--dark);
@@ -41,6 +46,15 @@ h5,
 h6,
 p {
   margin: 0;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+ul {
+  padding-left: .5rem;
 }
 
 button {

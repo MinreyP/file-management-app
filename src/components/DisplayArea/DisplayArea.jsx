@@ -1,8 +1,8 @@
-
+import '../DisplayArea/DisplayArea.css';
 
 const DisplayArea = () => {
     return (
-        <div>DisplayArea</div>
+        <div className="display-area">DisplayArea</div>
     )
 }
 

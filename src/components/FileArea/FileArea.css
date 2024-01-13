@@ -1,0 +1,5 @@
+.file-area {
+    flex: 30% 0 1;
+    border-right: 1px solid;
+    height: 100%;
+}
