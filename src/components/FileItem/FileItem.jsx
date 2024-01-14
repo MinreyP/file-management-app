@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
+import '../FileItem/FileItem.css';
 
 const FileItem = ({ file }) => {
 
     return (
-        <li>
+        <li className="file-item">
             {file.name}{file.type}
         </li>
     )

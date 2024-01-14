@@ -1,3 +1,5 @@
 .display-area {
     flex: 70% 1 1;
+    background-color: var(--display-bg);
+    min-height: 100vh;
 }

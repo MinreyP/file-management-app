@@ -4,8 +4,11 @@
   line-height: 1.5;
   font-weight: 400;
 
+  min-height: 100vh;
+
   /* theme color palette */
   --dark: #092635;
+  --display-bg: #04141c;
   --hight-light-block: #1B4242;
   --base-color: #5C8374;
   --light-color: #9EC8B9;
@@ -19,19 +22,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  padding: 3rem;
-  height: 100vh;
+html * {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  color: var(--light-color);
   background-color: var(--dark);
+}
+
+#root {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  height: 100vh;
 }
 
 h1 {
@@ -78,4 +85,13 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+input,
+input::placeholder,
+textarea {
+  padding: 1rem .8rem;
+  font-size: 1rem;
+  color: var(--light-color);
+  background-color: #13435b;
 }

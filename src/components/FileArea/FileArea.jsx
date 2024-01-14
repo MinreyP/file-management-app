@@ -32,7 +32,9 @@ const FileArea = () => {
 
     return (
         <div className="file-area">
-            <h2 className="folder-title">{rootName}</h2>
+            <h1 style={{ fontSize: '2rem' }}>File Management App by MP</h1>
+            <p>Edit folders and files by right click on the target item.</p>
+            <h2 className="folder-title" style={{ marginTop: '1rem' }}>{rootName}</h2>
             {subFolders ? loopingThroughObject(subFolders) : 'start adding file content'}
         </div>
     )

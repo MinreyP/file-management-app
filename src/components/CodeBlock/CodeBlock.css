@@ -1,0 +1,33 @@
+.code-editor-container .tab {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: fit-content;
+    margin-top: 1rem;
+    padding: .5em .8em;
+    font-size: 1.2rem;
+    background-color: var(--display-bg);
+    border: solid;
+    border-width: 1px 1px 0 1px;
+    color: var(--light-color);
+}
+
+.icon.cross {
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    position: relative;
+    margin-left: 2rem;
+}
+
+.icon.cross svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.icon.cross:hover {
+    cursor: pointer;
+    background-color: var(--light-color);
+    color: var(--dark);
+}
