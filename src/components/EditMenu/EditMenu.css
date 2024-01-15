@@ -3,7 +3,6 @@
     min-width: 120px;
     background-color: var(--display-bg);
     position: absolute;
-    z-index: 2;
 }
 
 .menu-item {

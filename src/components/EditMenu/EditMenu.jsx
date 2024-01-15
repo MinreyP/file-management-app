@@ -1,30 +1,45 @@
-import PropTypes from 'prop-types';
 import '../EditMenu/EditMenu.css';
+import useBoundStore from '../../states/boundStore';
+import { fileActions, folderActions, rootAction } from './availableActions';
 
-const EditMenu = ({ editType, onClose }) => {
+const EditMenu = () => {
+    const type = useBoundStore(state => state.onLocation.type);
+    const onClose = useBoundStore(state => state.handle_close);
+    const callFileAction = useBoundStore(state => state.handleFileAction);
+    const callFolderAction = useBoundStore(state => state.handleFolderAction);
 
-    const defaultItems = ['rename', 'copy', 'paste', 'cut', 'delete'];
-    const renderItems = editType === 'root' ? ['rename'] : defaultItems;
-
-    const handleItemSelected = (item) => {
+    const renderMenuItems = type => {
+        if (type === 'folder') {
+            return folderActions.map((action, i) => (
+                <div className="menu-item" key={i} onClick={() => handleClick(action.action_key)}>{action.name}</div>
+            ))
+        }
+        if (type === 'file') {
+            return fileActions.map((action, i) => (
+                <div className="menu-item" key={i} onClick={() => handleClick(action.action_key)}>{action.name}</div>
+            ))
+        } else {
+            return rootAction.map((action, i) => (
+                <div className="menu-item" key={i} onClick={() => handleClick(action.action_key)}>{action.name}</div>
+            ))
+        }
+    }
+    const handleClick = (actionKey) => {
+        if (type === 'folder') {
+            callFolderAction(actionKey)
+        }
+        if (type === 'file') {
+            callFileAction(actionKey)
+        }
         onClose();
-        console.log(`Selected Action: ${item}`)
     }
 
     return (
-        <div className={`edit-menu`}>
-            {renderItems.map((item, i) => (
-                <div className="menu-item" key={i} onClick={() => handleItemSelected(item)}>
-                    {item}
-                </div>
-            ))}
+        <div className="edit-menu">
+            {/* <div className="menu-item" onClick={() => handleClick('copy_file')}>Copy File</div> */}
+            {renderMenuItems(type)}
         </div>
     )
-}
-
-EditMenu.propTypes = {
-    editType: PropTypes.string,
-    onClose: PropTypes.func
 }
 
 export default EditMenu

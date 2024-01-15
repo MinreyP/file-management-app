@@ -1,12 +1,17 @@
-import folderTree from "../../folders-mockup";
+import useBoundStore from '../../states/boundStore';
 import '../FileArea/FileArea.css';
+import EditMenu from '../EditMenu/EditMenu';
 import FolderItem from "../FolderItem/FolderItem"
 
 
 const FileArea = () => {
-
+    const folderTree = useBoundStore(state => state.folderTree);
     const rootName = folderTree.root.name;
     const subFolders = folderTree.root.sub_folders;
+
+    // Edit Menu Operation
+    const showEditMenu = useBoundStore(state => state.showMenu);
+    // const menuPosition = useBoundStore(state => state.menuPosition);
 
     const loopingThroughObject = (obj) => {
         if (!obj) return;
@@ -36,6 +41,7 @@ const FileArea = () => {
             <p>Edit folders and files by right click on the target item.</p>
             <h2 className="folder-title" style={{ marginTop: '1rem' }}>{rootName}</h2>
             {subFolders ? loopingThroughObject(subFolders) : 'start adding file content'}
+            {showEditMenu && <EditMenu />}
         </div>
     )
 }
