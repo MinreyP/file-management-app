@@ -1,8 +1,7 @@
 .edit-menu {
     width: fit-content;
-    min-width: 120px;
+    min-width: 180px;
     background-color: var(--display-bg);
-    position: absolute;
 }
 
 .menu-item {

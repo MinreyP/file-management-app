@@ -8,10 +8,14 @@ const FileArea = () => {
     const folderTree = useBoundStore(state => state.folderTree);
     const rootName = folderTree.root.name;
     const subFolders = folderTree.root.sub_folders;
-
-    // Edit Menu Operation
+    const callMenu = useBoundStore(state => state.handle_menu);
     const showEditMenu = useBoundStore(state => state.showMenu);
-    // const menuPosition = useBoundStore(state => state.menuPosition);
+    const updateLocation = useBoundStore(state => state.handle_location);
+
+    const handleContextMenu = e => {
+        updateLocation({ type: 'root', id: 'root' });
+        callMenu(e);
+    }
 
     const loopingThroughObject = (obj) => {
         if (!obj) return;
@@ -39,7 +43,7 @@ const FileArea = () => {
         <div className="file-area">
             <h1 style={{ fontSize: '2rem' }}>File Management App by MP</h1>
             <p>Edit folders and files by right click on the target item.</p>
-            <h2 className="folder-title" style={{ marginTop: '1rem' }}>{rootName}</h2>
+            <h2 className="folder-title" style={{ marginTop: '1rem' }} onContextMenu={handleContextMenu}>{rootName}</h2>
             {subFolders ? loopingThroughObject(subFolders) : 'start adding file content'}
             {showEditMenu && <EditMenu />}
         </div>

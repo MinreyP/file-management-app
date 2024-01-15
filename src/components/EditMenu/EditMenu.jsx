@@ -5,6 +5,7 @@ import { fileActions, folderActions, rootAction } from './availableActions';
 const EditMenu = () => {
     const type = useBoundStore(state => state.onLocation.type);
     const onClose = useBoundStore(state => state.handle_close);
+    const menuPosition = useBoundStore(state => state.menuPosition);
     const callFileAction = useBoundStore(state => state.handleFileAction);
     const callFolderAction = useBoundStore(state => state.handleFolderAction);
 
@@ -25,7 +26,7 @@ const EditMenu = () => {
         }
     }
     const handleClick = (actionKey) => {
-        if (type === 'folder') {
+        if (type === 'folder' || type === 'root') {
             callFolderAction(actionKey)
         }
         if (type === 'file') {
@@ -35,8 +36,7 @@ const EditMenu = () => {
     }
 
     return (
-        <div className="edit-menu">
-            {/* <div className="menu-item" onClick={() => handleClick('copy_file')}>Copy File</div> */}
+        <div className="edit-menu" style={{ position: 'absolute', top: menuPosition.y, left: menuPosition.x, zIndex: 5 }}>
             {renderMenuItems(type)}
         </div>
     )

@@ -4,21 +4,19 @@ import folderMockup from '../folders-mockup';
 const folderData = localStorage.getItem("folderTree");
 const fileData = localStorage.getItem("allFiles");
 
-const useFileStore = set => ({
+const useFileStore = (set, get) => ({
     files: fileData ? fileData : fileMockup,
     folderTree: folderData ? folderData : folderMockup,
     onLocation: null,
     clipboard: [],
     activeFile: '',
     showMenu: false,
-    menuPosition: { x: 0, y: 0 },
+    menuPosition: { x: 32, y: 32 },
     handle_menu: (e) => {
         e.preventDefault();
-        const contextMenuWidth = 150;
-        const contextMenuHeight = 240;
-        const adjustedX = e.clientX - (contextMenuWidth / 2);
-        const adjustedY = e.clientY - contextMenuHeight;
-        set(() => ({ menuPosition: { x: adjustedX, y: adjustedY } }))
+        const contextMenuHeight = get().onLocation.type === 'root' ? 32 : 240;
+        const adjustHeight = e.clientY - contextMenuHeight;
+        set(() => ({ menuPosition: { x: e.clientX + 32, y: adjustHeight } }))
         set(() => ({ showMenu: true }));
     },
     handle_close: () => { set({ showMenu: false }) },

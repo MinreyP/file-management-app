@@ -21,10 +21,10 @@ const SearchBar = () => {
         <div className="search-bar-wrapper">
             <input className="search-bar" type="text" placeholder="Search File Name" name="search" id="file-search" />
             <span className="search-bar-icon"><AiOutlineSearch /></span>
-            <div className="search-results">
+            {/* <div className="search-results">
                 {results.length > 0 && results.map(result =>
                     <div className="result-item" key={result.id}>{result.name}{result.type}</div>)}
-            </div>
+            </div> */}
         </div>
     )
 }

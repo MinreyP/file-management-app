@@ -54,5 +54,5 @@ export const folderActions = [
 
 export const rootAction = [{
     name: 'Rename',
-    action_key: 'rename_file'
+    action_key: 'rename_folder'
 }]
