@@ -14,7 +14,7 @@ const FolderItem = ({ folderName, folderID }) => {
     const updateLocation = useBoundStore(state => state.handle_location);
 
     const handleContextMenu = e => {
-        updateLocation({ type: 'folder', id: folderID });
+        updateLocation({ type: 'folder', content: { id: folderID, name: folderName } });
         callMenu(e);
     }
 

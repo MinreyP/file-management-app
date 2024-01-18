@@ -7,13 +7,13 @@ const FileItem = ({ file }) => {
     const updateLocation = useBoundStore(state => state.handle_location);
 
     const handleContextMenu = e => {
-        updateLocation({ type: 'file', id: file.id });
+        updateLocation({ ...file, type: 'file' });
         callMenu(e);
     }
 
     return (
         <li className="file-item" onContextMenu={handleContextMenu}>
-            {file.name}{file.type}
+            {file.name}{file.extension}
         </li>
     )
 }

@@ -8,7 +8,7 @@ const useFileStore = (set, get) => ({
     files: fileData ? fileData : fileMockup,
     folderTree: folderData ? folderData : folderMockup,
     onLocation: null,
-    clipboard: [],
+    clipboard: null,
     activeFile: '',
     showMenu: false,
     menuPosition: { x: 32, y: 32 },
@@ -20,7 +20,16 @@ const useFileStore = (set, get) => ({
         set(() => ({ showMenu: true }));
     },
     handle_close: () => { set({ showMenu: false }) },
-    handle_location: (obj) => { set({ onLocation: obj }) }
+    handle_location: (obj) => { set({ onLocation: obj }) },
+    handle_edit_action: (actionKey) => {
+        const performOn = get().onLocation.type;
+        if (performOn === 'folder' || performOn === 'root') {
+            get()[`${actionKey}_folder`]();
+        }
+        if (performOn === 'file') {
+            get()[`${actionKey}_file`]();
+        }
+    }
 })
 
 export default useFileStore;

@@ -1,21 +1,19 @@
-const fileActions = {
+const useFileSlice = (set, get) => ({
+    rename_file: () => console.log(`rename file`),
     add_file: () => console.log(`add file`),
-    copy_file: () => console.log(`copy file`),
+    copy_file: () => {
+        const genID = Date.now();
+        const fileOBJ = { ...get().onLocation, id: genID }
+        set(() => ({ clipboard: [fileOBJ] }))
+    },
     delete_file: () => console.log(`delete file`),
     cut_file: () => console.log(`cut file`),
-    paste_file: () => console.log(`paste file`),
-    rename_file: () => console.log(`rename file`)
-}
-
-const useFileSlice = set => ({
-    handleFileAction: (actionKey, ...a) => {
-        const actionFunction = fileActions[actionKey];
-        if (actionFunction) {
-            actionFunction(set, ...a)
-        } else {
-            throw new Error(`Unknown action key: ${actionKey}`)
-        }
-    }
+    paste_file: () => {
+        const onFolderIndex = get().onLocation.id;
+        const newFiles = [...get().files[onFolderIndex], ...get().clipboard];
+        // set(() => ({ files: { ...get().files, valueOfIndex: [...valueOfIndex, ...get().clipboard] } }));
+        console.log({ newFiles: { ...get().files, onFolderIndex: newFiles } });
+    },
 })
 
 export default useFileSlice;
