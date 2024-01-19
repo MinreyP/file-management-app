@@ -3,10 +3,16 @@ const useFolderSlice = (set, get) => ({
     add_folder: (obj) => {
         const folderIndex = get().onLocation.content.id;
         const newFolderTree = { ...get().folderTree };
+        const newFolder = {
+            [obj.id]: {
+                name: obj.name,
+                sub_folders: null
+            }
+        };
 
         const addFolder = (folder, keyIndex) => {
             if (folder && folder[keyIndex]) {
-                folder[keyIndex].sub_folders = { ...folder[keyIndex].sub_folders, ...obj };
+                folder[keyIndex].sub_folders = { ...folder[keyIndex].sub_folders, ...newFolder };
                 return true;
             }
 
@@ -19,14 +25,18 @@ const useFolderSlice = (set, get) => ({
             return false;
         };
         addFolder(newFolderTree, folderIndex);
-        console.log(newFolderTree);
         set(state => ({ ...state, folderTree: newFolderTree }));
     },
     copy_folder: () => {
+        // gen a new id for the folder, add '-copy' at the end of the file name
+        // then store it into the clipboard
+        const genID = Date.now();
+        const toClipboardContent = { id: genID, name: `${get().onLocation.content.name}-copy` };
+        set(() => ({ clipboard: { ...get().onLocation, content: toClipboardContent } }));
     },
-    delete_folder: () => {
-        const folderIndex = get().onLocation.content.id;
+    delete_folder: (folderIndex) => {
         const newFolderTree = { ...get().folderTree };
+        const keyIndex = folderIndex || get().onLocation.content.id;
 
         const deleteFolderByKey = (folder, keyToDelete) => {
             if (folder && folder[keyToDelete]) {
@@ -42,32 +52,17 @@ const useFolderSlice = (set, get) => ({
 
             return false;
         };
-        deleteFolderByKey(newFolderTree, folderIndex);
-        console.log(newFolderTree);
+        deleteFolderByKey(newFolderTree, keyIndex);
         set(state => ({ ...state, folderTree: newFolderTree }));
     },
     cut_folder: () => {
-        const folderIndex = get().onLocation.content.id;
-        const newFolderTree = { ...get().folderTree };
-        const extractValue = {};
-
-        const extractValueByKey = (folder, keyIndex) => {
-            if (folder && folder[keyIndex]) {
-                extractValue[keyIndex] = { ...folder[keyIndex] };
-                delete folder[keyIndex];
-                return true;
-            }
-
-            for (const key in folder) {
-                if (extractValueByKey(folder[key].sub_folders, keyIndex)) {
-                    return true;
-                }
-            }
-
-            return false;
-        };
-        extractValueByKey(newFolderTree, folderIndex);
-        set(state => ({ ...state, clipboard: { ...state.onLocation }, folderTree: newFolderTree }));
+        // basically just call folder_delete and move location info to clipboard
+        const onFolderIndex = get().onLocation.content.id;
+        set(state => ({ clipboard: { ...state.onLocation } }));
+        set(state => {
+            state.delete_folder(onFolderIndex);
+            return state;
+        })
     },
     paste_folder: () => {
         const addItem = get().clipboard.content;

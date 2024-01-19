@@ -11,19 +11,25 @@ const useFileStore = (set, get) => ({
     clipboard: null,
     activeFile: '',
     showMenu: false,
+    showModal: false,
     menuPosition: { x: 32, y: 32 },
     handle_menu: (e) => {
         e.preventDefault();
-        const contextMenuHeight = get().onLocation.type === 'root' ? 32 : 240;
+        const contextMenuHeight = get().onLocation.content.id === 'root' ? 32 : 240;
         const adjustHeight = e.clientY - contextMenuHeight;
         set(() => ({ menuPosition: { x: e.clientX + 32, y: adjustHeight } }))
         set(() => ({ showMenu: true }));
     },
     handle_close: () => { set({ showMenu: false }) },
+    handle_modal_close: () => { set({ showModal: false }) },
     handle_location: (obj) => { set({ onLocation: obj }) },
     handle_edit_action: (actionKey) => {
         const performOn = get().onLocation.type;
-        if (performOn === 'folder' || performOn === 'root') {
+        if (actionKey === 'req_modal') {
+            set(() => ({ showModal: true }));
+            return;
+        }
+        if (performOn === 'folder') {
             get()[`${actionKey}_folder`]();
         }
         if (performOn === 'file') {

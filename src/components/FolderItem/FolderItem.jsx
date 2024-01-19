@@ -28,7 +28,7 @@ const FolderItem = ({ folderName, folderID }) => {
                     {folderName}
                 </h3>
                 <ul>
-                    {linkingFiles.map(file => <FileItem key={file.id} file={file} />)}
+                    {linkingFiles.map(file => <FileItem key={file.id} parent={folderID} file={file} />)}
                 </ul>
             </div>
         )
@@ -49,7 +49,7 @@ const FolderItem = ({ folderName, folderID }) => {
 
 FolderItem.propTypes = {
     folderName: PropTypes.string.isRequired,
-    folderID: PropTypes.string.isRequired
+    folderID: PropTypes.string.isRequired,
 }
 
 export default FolderItem

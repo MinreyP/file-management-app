@@ -2,11 +2,11 @@
 export const defaultItems = [
     {
         name: 'Rename',
-        action_key: 'rename'
+        action_key: 'req_modal'
     },
     {
         name: 'Add New',
-        action_key: 'add'
+        action_key: 'req_modal'
     },
     {
         name: 'Copy',
@@ -26,4 +26,9 @@ export const defaultItems = [
     }
 ];
 
-export const rootItems = defaultItems[0];
+export const rootItems = [
+    {
+        name: 'Rename',
+        action_key: 'req_modal'
+    }
+];
