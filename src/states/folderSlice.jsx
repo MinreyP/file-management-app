@@ -1,3 +1,17 @@
+const findFolderAndUpdate = (obj, index, callback) => {
+    if (obj && obj[index]) {
+        callback(obj, index);
+        return true;
+    }
+
+    for (const key in obj) {
+        if (findFolderAndUpdate(obj[key].sub_folders, index, callback)) {
+            return true;
+        }
+    }
+
+    return false;
+};
 
 const useFolderSlice = (set, get) => ({
     add_folder: (obj) => {
@@ -11,18 +25,9 @@ const useFolderSlice = (set, get) => ({
         };
 
         const addFolder = (folder, keyIndex) => {
-            if (folder && folder[keyIndex]) {
-                folder[keyIndex].sub_folders = { ...folder[keyIndex].sub_folders, ...newFolder };
-                return true;
-            }
-
-            for (const key in folder) {
-                if (addFolder(folder[key].sub_folders, keyIndex)) {
-                    return true;
-                }
-            }
-
-            return false;
+            findFolderAndUpdate(folder, keyIndex, (obj, key) => {
+                obj[key].sub_folders = { ...obj[key].sub_folders, ...newFolder };
+            })
         };
         addFolder(newFolderTree, folderIndex);
         set(state => ({ ...state, folderTree: newFolderTree }));
@@ -39,18 +44,9 @@ const useFolderSlice = (set, get) => ({
         const keyIndex = folderIndex || get().onLocation.content.id;
 
         const deleteFolderByKey = (folder, keyToDelete) => {
-            if (folder && folder[keyToDelete]) {
-                delete folder[keyToDelete];
-                return true;
-            }
-
-            for (const key in folder) {
-                if (deleteFolderByKey(folder[key].sub_folders, keyToDelete)) {
-                    return true;
-                }
-            }
-
-            return false;
+            findFolderAndUpdate(folder, keyToDelete, (obj, id) => {
+                delete obj[id];
+            })
         };
         deleteFolderByKey(newFolderTree, keyIndex);
         set(state => ({ ...state, folderTree: newFolderTree }));
@@ -74,21 +70,12 @@ const useFolderSlice = (set, get) => ({
     },
     rename_folder: (folderIndex, newName) => {
         const newFolderTree = { ...get().folderTree };
-        const updateFolderName = (folder, keyToRename) => {
-            if (folder && folder[keyToRename]) {
-                folder[keyToRename].name = newName;
-                return true;
-            }
-
-            for (const key in folder) {
-                if (updateFolderName(folder[key].sub_folders, keyToRename)) {
-                    return true;
-                }
-            }
-
-            return false;
+        const updateFolderName = (folder, keyToUpdate) => {
+            findFolderAndUpdate(folder, keyToUpdate, (obj, key) => {
+                obj[key].name = newName;
+            });
         };
-        updateFolderName(newFolderTree, folderIndex);
+        updateFolderName(newFolderTree, folderIndex)
         set(() => ({ folderTree: newFolderTree }));
     }
 });
