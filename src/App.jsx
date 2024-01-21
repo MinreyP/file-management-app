@@ -5,7 +5,7 @@ import DisplayArea from './components/DisplayArea/DisplayArea'
 import Modal from './components/Modal/Modal'
 
 function App() {
-  const isModal = useBoundStore(state => state.showModal);
+  const isModal = useBoundStore(state => state.modal.isShow);
 
   return (
     <>

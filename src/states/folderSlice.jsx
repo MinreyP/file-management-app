@@ -66,13 +66,13 @@ const useFolderSlice = (set, get) => ({
     },
     paste_folder: () => {
         const addItem = get().clipboard.content;
+        set(() => ({ clipboard: null }));
         set(state => {
             state.add_folder(addItem);
             return state;
         })
     },
-    rename_folder: (newName) => {
-        const onFolderIndex = get().onLocation.content.id;
+    rename_folder: (folderIndex, newName) => {
         const newFolderTree = { ...get().folderTree };
         const updateFolderName = (folder, keyToRename) => {
             if (folder && folder[keyToRename]) {
@@ -88,9 +88,8 @@ const useFolderSlice = (set, get) => ({
 
             return false;
         };
-        updateFolderName(newFolderTree, onFolderIndex);
-        console.log(newFolderTree);
-        // set(() => ({ folderTree: newFolderTree }));
+        updateFolderName(newFolderTree, folderIndex);
+        set(() => ({ folderTree: newFolderTree }));
     }
 });
 

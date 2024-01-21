@@ -11,7 +11,7 @@ const useFileStore = (set, get) => ({
     clipboard: null,
     activeFile: '',
     showMenu: false,
-    showModal: false,
+    modal: { isShow: false },
     menuPosition: { x: 32, y: 32 },
     handle_menu: (e) => {
         e.preventDefault();
@@ -21,12 +21,12 @@ const useFileStore = (set, get) => ({
         set(() => ({ showMenu: true }));
     },
     handle_close: () => { set({ showMenu: false }) },
-    handle_modal_close: () => { set({ showModal: false }) },
+    handle_modal_close: () => { set({ modal: { isShow: false } }) },
     handle_location: (obj) => { set({ onLocation: obj }) },
     handle_edit_action: (actionKey) => {
         const performOn = get().onLocation.type;
-        if (actionKey === 'req_modal') {
-            set(() => ({ showModal: true }));
+        if (actionKey === 'rename' || actionKey === 'add') {
+            set(() => ({ modal: { isShow: true, type: actionKey } }));
             return;
         }
         if (performOn === 'folder') {
