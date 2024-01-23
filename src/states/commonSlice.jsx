@@ -29,17 +29,11 @@ const useFileStore = (set, get) => ({
         set({ onLocation: obj })
     },
     handle_edit_action: (actionKey) => {
-        const performOn = get().onLocation.type;
         if (actionKey.includes('rename') || actionKey.includes('add')) {
             set(() => ({ modal: { isShow: true, type: actionKey } }));
             return;
         }
-        if (performOn === 'folder') {
-            get()[`${actionKey}_folder`]();
-        }
-        if (performOn === 'file') {
-            get()[`${actionKey}_file`]();
-        }
+        get()[actionKey]();
     }
 })
 

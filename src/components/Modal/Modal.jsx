@@ -7,12 +7,17 @@ const Modal = () => {
     const closeModal = useBoundStore(state => state.handle_modal_close);
     const renameFolder = useBoundStore(state => state.rename_folder);
     const addFolder = useBoundStore(state => state.add_folder);
+    const renameFile = useBoundStore(state => state.rename_file);
+    const addFile = useBoundStore(state => state.add_file);
 
     const handleRename = (e) => {
         e.preventDefault();
         let newName = e.target.elements['file-name'].value;
         if (performItem.type === 'folder') {
             renameFolder(performItem.content.id, newName);
+        }
+        if (performItem.type === 'file') {
+            renameFile(performItem.parent, performItem.content.id, newName);
         }
         closeModal();
     }
@@ -29,7 +34,7 @@ const Modal = () => {
     }
 
     const renderModalForm = () => {
-        if (type === 'add') {
+        if (type.includes('add')) {
             if (performItem.type === 'folder') {
                 return (
                     <form onSubmit={handleAdd}>
@@ -43,7 +48,7 @@ const Modal = () => {
                         <label htmlFor="fileName">File Name</label>
                         <input id="fileName" name="file-name" type="text" required />
                         <label htmlFor="fileExtension">File Format</label>
-                        <input name="file-extension" id="fileExtension" type="text" required />
+                        <input name="file-extension" id="fileExtension" type="text" placeholder='.txt, .js, .css...' required />
                         <button type="submit">Add</button>
                     </form>)
             }
@@ -60,7 +65,7 @@ const Modal = () => {
     return (
         <div className="modal-backdrop">
             <div className="modal-container">
-                <p className="modal-title">{type === 'rename' ? `Edit Name` : `Add New ${performItem.type}`}</p>
+                <p className="modal-title">{type.includes('rename') ? `edit name` : `add new ${performItem.type}`}</p>
                 {renderModalForm()}
             </div>
         </div>

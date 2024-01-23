@@ -2,29 +2,29 @@ import PropTypes from 'prop-types';
 import '../FileItem/FileItem.css';
 import useBoundStore from '../../states/boundStore';
 
-const FileItem = ({ parent, file }) => {
-    const callMenu = useBoundStore(state => state.handle_menu);
-    const updateLocation = useBoundStore(state => state.handle_location);
+const FileItem = ({ folder }) => {
 
-    const handleContextMenu = e => {
-        updateLocation({ type: 'file', content: file, parent });
-        callMenu(e);
+    const filesData = useBoundStore(state => state.files);
+
+    if (filesData[folder] && filesData[folder].length !== 0) {
+        return (
+            <ul>
+                {
+                    filesData[folder].map(file => (
+                        <li className="file-item" key={file.id} data-file={file.id} data-parent={folder}>{file.name}.{file.extension}</li>
+                    ))
+                }
+            </ul>
+        )
+    } else {
+        return (
+            <p>Start adding some files.</p>
+        )
     }
-
-    const handleClick = () => {
-        updateLocation({ type: 'file', content: file, parent });
-    }
-
-    return (
-        <li className="file-item" onContextMenu={handleContextMenu} onClick={handleClick}>
-            {file.name}{file.extension}
-        </li>
-    )
 }
 
 FileItem.propTypes = {
-    file: PropTypes.object,
-    parent: PropTypes.string
+    folder: PropTypes.string,
 }
 
 export default FileItem

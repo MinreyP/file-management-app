@@ -8,17 +8,18 @@ const useFileSlice = (set, get) => ({
             return file;
         })
         newFiles[folder] = updatedArr;
-        set(() => ({ files: newFiles }));
+        set(state => ({ ...state, files: newFiles }));
     },
     add_file: (obj) => {
         let newFiles = { ...get().files };
-        const folderIndex = get().onLocation.type === 'folder' ? get().onLocation.content.id : 'root';
+        const folderIndex = get().onLocation.content.id;
         if (newFiles[folderIndex]) {
             newFiles[folderIndex].push(obj);
         } else {
             newFiles[folderIndex] = [obj];
         }
-        set(() => ({ files: newFiles }));
+        console.log('file added', newFiles);
+        set(state => ({ ...state, files: newFiles }));
     },
     copy_file: () => {
         const genID = Date.now();
