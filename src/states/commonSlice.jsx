@@ -9,7 +9,7 @@ const useFileStore = (set, get) => ({
     folderTree: folderData ? folderData : folderMockup,
     onLocation: null,
     clipboard: null,
-    activeFile: '',
+    activeFile: null,
     showMenu: false,
     modal: { isShow: false },
     menuPosition: { x: 32, y: 32 },
@@ -22,10 +22,15 @@ const useFileStore = (set, get) => ({
     },
     handle_close: () => { set({ showMenu: false }) },
     handle_modal_close: () => { set({ modal: { isShow: false } }) },
-    handle_location: (obj) => { set({ onLocation: obj }) },
+    handle_location: (obj) => {
+        if (obj.type === 'file') {
+            set({ activeFile: obj.content })
+        }
+        set({ onLocation: obj })
+    },
     handle_edit_action: (actionKey) => {
         const performOn = get().onLocation.type;
-        if (actionKey === 'rename' || actionKey === 'add') {
+        if (actionKey.includes('rename') || actionKey.includes('add')) {
             set(() => ({ modal: { isShow: true, type: actionKey } }));
             return;
         }

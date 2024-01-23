@@ -1,18 +1,48 @@
 const useFileSlice = (set, get) => ({
-    rename_file: () => console.log(`rename file`),
-    add_file: () => console.log(`add file`),
+    rename_file: (folder, fileID, newName) => {
+        let newFiles = { ...get().files };
+        let updatedArr = newFiles[folder].map(file => {
+            if (file.id === fileID) {
+                file.name = newName;
+            }
+            return file;
+        })
+        newFiles[folder] = updatedArr;
+        set(() => ({ files: newFiles }));
+    },
+    add_file: (obj) => {
+        let newFiles = { ...get().files };
+        const folderIndex = get().onLocation.type === 'folder' ? get().onLocation.content.id : 'root';
+        if (newFiles[folderIndex]) {
+            newFiles[folderIndex].push(obj);
+        } else {
+            newFiles[folderIndex] = [obj];
+        }
+        set(() => ({ files: newFiles }));
+    },
     copy_file: () => {
         const genID = Date.now();
-        const fileOBJ = { ...get().onLocation, id: genID }
-        set(() => ({ clipboard: [fileOBJ] }))
+        const copiedContent = { ...get().onLocation.content, id: genID };
+        set(state => ({ clipboard: { ...state.onLocation, content: copiedContent } }));
     },
-    delete_file: () => console.log(`delete file`),
-    cut_file: () => console.log(`cut file`),
+    delete_file: () => {
+        let newFiles = { ...get().files };
+        const { parent } = get().onLocation;
+        const fileID = get().onLocation.content.id;
+        const updatedArr = newFiles[parent].filter(file => file.id !== fileID);
+        newFiles[parent] = updatedArr;
+        set(state => ({ ...state, files: newFiles, activeFile: null }));
+    },
+    cut_file: () => {
+        set(state => ({ clipboard: state.onLocation }))
+        get().delete_file();
+    },
     paste_file: () => {
-        const onFolderIndex = get().onLocation.id;
-        const newFiles = [...get().files[onFolderIndex], ...get().clipboard];
-        // set(() => ({ files: { ...get().files, valueOfIndex: [...valueOfIndex, ...get().clipboard] } }));
-        console.log({ newFiles: { ...get().files, onFolderIndex: newFiles } });
+        const { content } = get().clipboard;
+        set(state => {
+            state.add_file(content);
+            return { ...state, clipboard: null };
+        })
     },
 })
 

@@ -16,7 +16,7 @@ const findFolderAndUpdate = (obj, index, callback) => {
 const useFolderSlice = (set, get) => ({
     add_folder: (obj) => {
         const folderIndex = get().onLocation.content.id;
-        const newFolderTree = { ...get().folderTree };
+        let newFolderTree = { ...get().folderTree };
         const newFolder = {
             [obj.id]: {
                 name: obj.name,
@@ -40,7 +40,7 @@ const useFolderSlice = (set, get) => ({
         set(() => ({ clipboard: { ...get().onLocation, content: toClipboardContent } }));
     },
     delete_folder: (folderIndex) => {
-        const newFolderTree = { ...get().folderTree };
+        let newFolderTree = { ...get().folderTree };
         const keyIndex = folderIndex || get().onLocation.content.id;
 
         const deleteFolderByKey = (folder, keyToDelete) => {
@@ -69,7 +69,7 @@ const useFolderSlice = (set, get) => ({
         })
     },
     rename_folder: (folderIndex, newName) => {
-        const newFolderTree = { ...get().folderTree };
+        let newFolderTree = { ...get().folderTree };
         const updateFolderName = (folder, keyToUpdate) => {
             findFolderAndUpdate(folder, keyToUpdate, (obj, key) => {
                 obj[key].name = newName;

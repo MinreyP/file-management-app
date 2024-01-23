@@ -2,13 +2,13 @@ const filesData = {
     "0123": [
         {
             "name": "README",
-            "extension": ".md",
+            "extension": "md",
             "id": "b345",
-            "content": "Test Content",
+            "content": "### Test Content",
         },
         {
             "name": "Some Text",
-            "extension": ".txt",
+            "extension": "txt",
             "id": "c123",
             "content": "Some Text Content",
         }
@@ -16,23 +16,23 @@ const filesData = {
     "0246": [
         {
             "name": "Index",
-            "extension": ".html",
+            "extension": "html",
             "id": "c456",
-            "content": "Hello World",
+            "content": "<h1>Hello World</h1>",
         },
         {
             "name": "style",
-            "extension": ".css",
+            "extension": "css",
             "id": "c789",
-            "content": "color:red",
+            "content": "body, html{\n  margin: 0; padding: 0;\n}",
         }
     ],
     "789": [
         {
             "name": "Theme-style",
-            "extension": ".css",
+            "extension": "css",
             "id": "db456",
-            "content": "color: red",
+            "content": "h1, h2, h3 {\n  font-family: arial, helvetica, sans-serif;\n}",
         }
     ]
 };

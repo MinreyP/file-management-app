@@ -33,7 +33,7 @@ const Modal = () => {
             if (performItem.type === 'folder') {
                 return (
                     <form onSubmit={handleAdd}>
-                        <label htmlFor="fileName">File Name</label>
+                        <label htmlFor="fileName">Folder Name</label>
                         <input type="text" id="fileName" name="file-name" required />
                         <button type="submit">Add</button>
                     </form>)
@@ -43,20 +43,14 @@ const Modal = () => {
                         <label htmlFor="fileName">File Name</label>
                         <input id="fileName" name="file-name" type="text" required />
                         <label htmlFor="fileExtension">File Format</label>
-                        <select name="file-extension" id="fileExtension" required>
-                            <option value="txt">text</option>
-                            <option value="js">javascript</option>
-                            <option value="ts">typescript</option>
-                            <option value="html">html</option>
-                            <option value="css">css</option>
-                        </select>
+                        <input name="file-extension" id="fileExtension" type="text" required />
                         <button type="submit">Add</button>
                     </form>)
             }
         } else {
             return (
                 <form onSubmit={handleRename}>
-                    <label htmlFor="fileName">File Name</label>
+                    <label htmlFor="fileName">Update Name</label>
                     <input type="text" id="fileName" name="file-name" placeholder={performItem.content.name} required />
                     <button type="submit">Save</button>
                 </form>)
