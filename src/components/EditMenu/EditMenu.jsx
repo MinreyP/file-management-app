@@ -21,6 +21,21 @@ const EditMenu = () => {
             })
         }
     }
+
+    const renderPasteConditionally = () => {
+        // Only render paste option when action is performed on a folder
+        if (clipboard?.type === 'folder' && type === 'folder') {
+            return (
+                <div className="menu-item" onClick={() => handleClick('paste_folder')}>Paste Folder {`'${clipboard.content.name}'`}</div>
+            )
+        }
+        if (clipboard?.type === 'file' && type === 'folder') {
+            return (
+                <div className="menu-item" onClick={() => handleClick('paste_file')}>Paste File {`'${clipboard.content.name}.${clipboard.content.extension}'`}</div>
+            )
+        }
+    }
+
     const handleClick = (actionKey) => {
         callEditAction(actionKey);
         onClose();
@@ -28,10 +43,7 @@ const EditMenu = () => {
 
     return (
         <div className="edit-menu" style={{ position: 'absolute', top: menuPosition.y, left: menuPosition.x, zIndex: 5 }}>
-            {clipboard?.type === 'folder' && (
-                <div className="menu-item" onClick={() => handleClick('paste_folder')}>Paste Folder {clipboard.content.name}</div>)}
-            {clipboard?.type === 'file' && (
-                <div className="menu-item" onClick={() => handleClick('paste_file')}>Paste File {clipboard.content.name}.{clipboard.content.extension}</div>)}
+            {renderPasteConditionally()}
             {renderMenuItems()}
         </div>
     )

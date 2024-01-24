@@ -3,8 +3,8 @@ import '../FileItem/FileItem.css';
 import useBoundStore from '../../states/boundStore';
 
 const FileItem = ({ folder }) => {
-
     const filesData = useBoundStore(state => state.files);
+    console.log('File rendered with files:');
 
     if (filesData[folder] && filesData[folder].length !== 0) {
         return (

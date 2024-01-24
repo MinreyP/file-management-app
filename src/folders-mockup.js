@@ -3,8 +3,7 @@ const folderTree = {
         name: "Root",
         sub_folders: {
             "0123": {
-                name: "Personal",
-                sub_folders: null
+                name: "Personal"
             },
             "0246": {
                 name: "Work",

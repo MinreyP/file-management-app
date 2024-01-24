@@ -4,12 +4,14 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import useBoundStore from "../../states/boundStore";
 
 const CodeBlock = () => {
-    const activeFile = useBoundStore(state => state.activeFile);
+    const { id, parent } = useBoundStore(state => state.activeFile);
+    const filesRelated = useBoundStore(state => state.files[parent]);
+    const file = filesRelated.find(file => file.id === id);
 
     return (
         <div className="code-editor-container">
             <div className="tab">
-                <p>{activeFile.name}.{activeFile.extension}</p>
+                <p>{file.name}.{file.extension}</p>
                 <span className="icon cross">
                     <AiOutlineClose />
                 </span>
@@ -17,8 +19,8 @@ const CodeBlock = () => {
             <CodeEditor
                 data-color-mode="dark"
                 style={{ backgroundColor: 'var(--display-bg)', fontSize: '1.2rem', borderTop: 'solid 1px var(--base-color)' }}
-                value={activeFile.content}
-                language={activeFile.extension}
+                value={file.content}
+                language={file.extension}
                 placeholder="Start typing..."
             />
         </div>

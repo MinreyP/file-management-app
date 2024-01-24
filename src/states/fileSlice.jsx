@@ -1,6 +1,6 @@
 const useFileSlice = (set, get) => ({
     rename_file: (folder, fileID, newName) => {
-        let newFiles = { ...get().files };
+        let newFiles = get().files;
         let updatedArr = newFiles[folder].map(file => {
             if (file.id === fileID) {
                 file.name = newName;
@@ -8,10 +8,10 @@ const useFileSlice = (set, get) => ({
             return file;
         })
         newFiles[folder] = updatedArr;
-        set(state => ({ ...state, files: newFiles }));
+        set(() => ({ files: { ...newFiles } }));
     },
     add_file: (obj) => {
-        let newFiles = { ...get().files };
+        let newFiles = get().files;
         const folderIndex = get().onLocation.content.id;
         if (newFiles[folderIndex]) {
             newFiles[folderIndex].push(obj);
@@ -19,23 +19,28 @@ const useFileSlice = (set, get) => ({
             newFiles[folderIndex] = [obj];
         }
         console.log('file added', newFiles);
-        set(state => ({ ...state, files: newFiles }));
+        set(() => ({ files: { ...newFiles } }));
     },
     copy_file: () => {
         const genID = Date.now();
-        const copiedContent = { ...get().onLocation.content, id: genID };
-        set(state => ({ clipboard: { ...state.onLocation, content: copiedContent } }));
+        const { parent, id } = get().onLocation.content;
+        const allFiles = get().files;
+        const targetFile = allFiles[parent].find(file => file.id === id);
+        const copiedContent = { ...targetFile, id: genID };
+        set(() => ({ clipboard: { type: 'file', content: copiedContent } }));
     },
     delete_file: () => {
         let newFiles = { ...get().files };
-        const { parent } = get().onLocation;
-        const fileID = get().onLocation.content.id;
-        const updatedArr = newFiles[parent].filter(file => file.id !== fileID);
+        const { parent, id } = get().onLocation.content;
+        const updatedArr = newFiles[parent].filter(file => file.id !== id);
         newFiles[parent] = updatedArr;
-        set(state => ({ ...state, files: newFiles, activeFile: null }));
+        set(() => ({ files: newFiles, activeFile: null }));
     },
     cut_file: () => {
-        set(state => ({ clipboard: state.onLocation }))
+        const { parent, id } = get().onLocation.content;
+        const allFiles = get().files;
+        const targetFile = allFiles[parent].find(file => file.id === id);
+        set(() => ({ clipboard: { type: 'file', content: targetFile } }))
         get().delete_file();
     },
     paste_file: () => {

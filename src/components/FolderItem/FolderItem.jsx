@@ -10,8 +10,6 @@ const FolderItem = ({ folderName, folderID }) => {
     const iconDeg = isOpen ? null : { transform: 'rotate(-90deg)' };
 
 
-    console.log('FolderItem rendered with files:');
-
     return (
         <div className={`folder-container ${isOpen ? 'open' : ''}`}>
             <h3 className="folder-title" onClick={() => setIsOpen(!isOpen)} data-folder={folderID} data-name={folderName}>

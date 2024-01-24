@@ -16,7 +16,7 @@ const useFileStore = (set, get) => ({
     handle_menu: (e) => {
         e.preventDefault();
         const contextMenuHeight = get().onLocation.content.id === 'root' ? 32 : 240;
-        const adjustHeight = e.clientY - contextMenuHeight;
+        const adjustHeight = e.clientY - contextMenuHeight / 2;
         set(() => ({ menuPosition: { x: e.clientX + 32, y: adjustHeight } }))
         set(() => ({ showMenu: true }));
     },
