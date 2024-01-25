@@ -18,7 +18,6 @@ const useFileSlice = (set, get) => ({
         } else {
             newFiles[folderIndex] = [obj];
         }
-        console.log('file added', newFiles);
         set(() => ({ files: { ...newFiles } }));
     },
     copy_file: () => {
@@ -26,7 +25,7 @@ const useFileSlice = (set, get) => ({
         const { parent, id } = get().onLocation.content;
         const allFiles = get().files;
         const targetFile = allFiles[parent].find(file => file.id === id);
-        const copiedContent = { ...targetFile, id: genID };
+        const copiedContent = { ...targetFile, id: genID.toString(), name: `${targetFile.name}-copy` };
         set(() => ({ clipboard: { type: 'file', content: copiedContent } }));
     },
     delete_file: () => {

@@ -16,13 +16,15 @@ const CodeBlock = () => {
                     <AiOutlineClose />
                 </span>
             </div>
-            <CodeEditor
-                data-color-mode="dark"
-                style={{ backgroundColor: 'var(--display-bg)', fontSize: '1.2rem', borderTop: 'solid 1px var(--base-color)' }}
-                value={file.content}
-                language={file.extension}
-                placeholder="Start typing..."
-            />
+            <div style={{ padding: '0 2rem' }}>
+                <CodeEditor
+                    data-color-mode="dark"
+                    style={{ backgroundColor: 'var(--display-bg)', fontSize: '1.2rem', borderTop: 'solid 1px var(--base-color)' }}
+                    value={file.content}
+                    language={file.extension}
+                    placeholder="Start typing..."
+                />
+            </div>
         </div>
     )
 }
