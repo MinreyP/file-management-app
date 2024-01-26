@@ -10,7 +10,7 @@
     color: var(--light-color);
     background-color: var(--dark);
     position: absolute;
-    bottom: -110px;
+    bottom: -130%;
     left: 0;
     z-index: 2;
 }
