@@ -14,9 +14,9 @@ const useFileSlice = (set, get) => ({
         let newFiles = get().files;
         const folderIndex = get().onLocation.content.id;
         if (newFiles[folderIndex]) {
-            newFiles[folderIndex].push(obj);
+            newFiles[folderIndex].push({ ...obj, parent: folderIndex });
         } else {
-            newFiles[folderIndex] = [obj];
+            newFiles[folderIndex] = [{ ...obj, parent: folderIndex }];
         }
         set(() => ({ files: { ...newFiles } }));
     },
