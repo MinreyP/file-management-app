@@ -19,7 +19,7 @@ const DisplayArea = () => {
                     <div className="icon-wrapper">
                         <AiOutlineFolderOpen />
                     </div>
-                    <p>select a file to start editing</p>
+                    <p>select a file to preview content</p>
                 </div>)}
         </div>
     )

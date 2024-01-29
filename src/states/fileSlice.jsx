@@ -9,6 +9,7 @@ const useFileSlice = (set, get) => ({
         })
         newFiles[folder] = updatedArr;
         set(() => ({ files: { ...newFiles } }));
+        localStorage.setItem("allFiles", JSON.stringify({ ...newFiles }));
     },
     add_file: (obj) => {
         let newFiles = get().files;
@@ -19,6 +20,7 @@ const useFileSlice = (set, get) => ({
             newFiles[folderIndex] = [{ ...obj, parent: folderIndex }];
         }
         set(() => ({ files: { ...newFiles } }));
+        localStorage.setItem("allFiles", JSON.stringify({ ...newFiles }));
     },
     copy_file: () => {
         const genID = Date.now();
@@ -34,6 +36,7 @@ const useFileSlice = (set, get) => ({
         const updatedArr = newFiles[parent].filter(file => file.id !== id);
         newFiles[parent] = updatedArr;
         set(() => ({ files: newFiles, activeFile: null }));
+        localStorage.setItem("allFiles", JSON.stringify({ ...newFiles }));
     },
     cut_file: () => {
         const { parent, id } = get().onLocation.content;

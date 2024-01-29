@@ -10,7 +10,8 @@ const FileItem = ({ folder }) => {
             <ul>
                 {
                     filesData[folder].map(file => (
-                        <li className="file-item" key={file.id} data-file={file.id} data-parent={folder}>{file.name}.{file.extension}</li>
+                        <li className="file-item" key={file.id}
+                            data-file={file.id} data-name={file.name} data-parent={folder}>{file.name}.{file.extension}</li>
                     ))
                 }
             </ul>

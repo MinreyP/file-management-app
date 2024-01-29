@@ -33,6 +33,7 @@ const useFolderSlice = (set, get) => ({
         };
         addFolder(newFolderTree, folderIndex);
         set(() => ({ folderTree: { ...newFolderTree } }));
+        localStorage.setItem("folderTree", JSON.stringify({ ...newFolderTree }));
     },
     copy_folder: () => {
         // gen a new id for the folder, add '-copy' at the end of the file name
@@ -61,6 +62,7 @@ const useFolderSlice = (set, get) => ({
         };
         deleteFolderByKey(newFolderTree, keyIndex);
         set(() => ({ folderTree: { ...newFolderTree } }));
+        localStorage.setItem("folderTree", JSON.stringify({ ...newFolderTree }));
     },
     cut_folder: () => {
         // basically just call folder_delete and move extracted info to the clipboard
@@ -97,6 +99,7 @@ const useFolderSlice = (set, get) => ({
         };
         updateFolderName(newFolderTree, folderIndex)
         set(() => ({ folderTree: { ...newFolderTree } }));
+        localStorage.setItem("folderTree", JSON.stringify({ ...newFolderTree }));
     }
 });
 

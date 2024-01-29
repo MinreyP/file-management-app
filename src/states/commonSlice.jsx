@@ -1,12 +1,37 @@
-import fileMockup from '../files-mockup';
-import folderMockup from '../folders-mockup';
+// import fileMockup from '../files-mockup';
+// import folderMockup from '../folders-mockup';
 
 const folderData = localStorage.getItem("folderTree");
 const fileData = localStorage.getItem("allFiles");
 
+const defaultfolderTree = {
+    "root": {
+        name: "Root"
+    }
+}
+
+const defaultFileData = {
+    "root": [
+        {
+            "name": "README",
+            "extension": "md",
+            "id": "b345",
+            "content": "### Test Content",
+            "parent": "root"
+        },
+        {
+            "name": "Some Text",
+            "extension": "txt",
+            "id": "c123",
+            "content": "Some Text Content",
+            "parent": "root"
+        }
+    ]
+};
+
 const useFileStore = (set, get) => ({
-    files: fileData ? fileData : fileMockup,
-    folderTree: folderData ? folderData : folderMockup,
+    files: fileData ? JSON.parse(fileData) : defaultFileData,
+    folderTree: folderData ? JSON.parse(folderData) : defaultfolderTree,
     onLocation: null,
     clipboard: null,
     activeFile: null,

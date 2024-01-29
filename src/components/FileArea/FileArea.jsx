@@ -56,7 +56,7 @@ const FileArea = () => {
             return;
         }
         if (classList.contains('file-item')) {
-            updateLocation({ type: 'file', content: { id: dataset.file, parent: dataset.parent } });
+            updateLocation({ type: 'file', content: { id: dataset.file, name: dataset.name, parent: dataset.parent } });
             callMenu(e);
             return;
         }
@@ -68,6 +68,7 @@ const FileArea = () => {
             onContextMenu={(e) => handleContext(e)}>
             <h1 style={{ fontSize: '2rem' }}>File Management App by MP</h1>
             <p>Edit folders and files by right click on the target item.</p>
+            <small style={{ display: "block", marginTop: ".5rem" }}>*Root folder can only be renamed, deletion is now allowed*</small>
             {loopingThroughObject(folderTree)}
         </div>
     )
