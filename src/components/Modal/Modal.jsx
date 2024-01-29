@@ -57,7 +57,7 @@ const Modal = () => {
                 return (
                     <>
                         <p className="modal-title">add new folder</p>
-                        <form onSubmit={handleAdd}>
+                        <form className="form-control" onSubmit={handleAdd}>
                             <label htmlFor="fileName">Folder Name</label>
                             <input type="text" id="fileName" name="file-name" required />
                             <button type="submit">Add</button>
@@ -68,7 +68,7 @@ const Modal = () => {
                 return (
                     <>
                         <p className="modal-title">add new file</p>
-                        <form onSubmit={handleAdd}>
+                        <form className="form-control" onSubmit={handleAdd}>
                             <label htmlFor="fileName">File Name</label>
                             <input id="fileName" name="file-name" type="text" required />
                             <label htmlFor="fileExtension">File Format</label>
@@ -82,7 +82,7 @@ const Modal = () => {
             return (
                 <>
                     <p className="modal-title">update {performItem.type} name</p>
-                    <form onSubmit={handleRename}>
+                    <form className="form-control" onSubmit={handleRename}>
                         <label htmlFor="fileName">{performItem.type} Name</label>
                         <input type="text" id="fileName" name="file-name" placeholder={performItem.content.name} required />
                         <button type="submit">Save</button>

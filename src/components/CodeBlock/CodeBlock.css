@@ -1,3 +1,8 @@
+.code-editor-container {
+    margin-top: 3rem;
+    padding: 0 2rem;
+}
+
 .code-editor-container .tab {
     display: flex;
     justify-content: space-between;

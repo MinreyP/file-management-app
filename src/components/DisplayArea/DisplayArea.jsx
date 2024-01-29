@@ -14,7 +14,13 @@ const DisplayArea = () => {
     return (
         <div className="display-area">
             <SearchBar files={allFiles} />
-            {activeFile ? <CodeBlock displayFile={file} /> : <AiOutlineFolderOpen size="3rem" />}
+            {activeFile ? <CodeBlock displayFile={file} /> : (
+                <div className="display-content">
+                    <div className="icon-wrapper">
+                        <AiOutlineFolderOpen />
+                    </div>
+                    <p>select a file to start editing</p>
+                </div>)}
         </div>
     )
 }

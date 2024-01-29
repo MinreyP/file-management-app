@@ -35,3 +35,24 @@
     font-weight: 800;
     text-transform: capitalize;
 }
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.form-control label {
+    margin-top: 1rem;
+}
+
+.form-control input {
+    margin-top: .2em;
+    padding: .4em .6em;
+    border: none;
+}
+
+.form-control button {
+    margin-top: 2rem;
+}
