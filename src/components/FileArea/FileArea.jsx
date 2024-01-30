@@ -68,7 +68,7 @@ const FileArea = () => {
             onContextMenu={(e) => handleContext(e)}>
             <h1 style={{ fontSize: '2rem' }}>File Management App by MP</h1>
             <p>Edit folders and files by right click on the target item.</p>
-            <small style={{ display: "block", marginTop: ".5rem" }}>*Root folder can only be renamed, deletion is now allowed*</small>
+            <small style={{ display: "block", marginTop: ".5rem" }}>*Root folder can only be renamed, deletion is not allowed*</small>
             {loopingThroughObject(folderTree)}
         </div>
     )
